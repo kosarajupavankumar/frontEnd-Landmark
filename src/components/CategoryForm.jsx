@@ -1,16 +1,16 @@
-// src/components/CategoryForm.jsx
 import { useState } from "react";
 import { useCategories } from "../hooks/useCategories";
 
 const CategoryForm = () => {
   const [name, setName] = useState("");
-  const { addCategory } = useCategories();
+  const { addCategory, loadCategories } = useCategories();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name) {
       addCategory({ name });
       setName("");
+      loadCategories(); // Reload categories after adding
     }
   };
 

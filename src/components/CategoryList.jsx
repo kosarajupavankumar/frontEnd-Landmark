@@ -1,4 +1,3 @@
-// src/components/CategoryList.jsx
 import { useCategories } from "../hooks/useCategories";
 
 const CategoryList = () => {
@@ -9,10 +8,26 @@ const CategoryList = () => {
     removeCategory,
     addCategory,
     editCategory,
+    loadCategories,
   } = useCategories();
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
+
+  const handleRemoveCategory = async (id) => {
+    await removeCategory(id);
+    loadCategories();
+  };
+
+  const handleEditCategory = async (id) => {
+    await editCategory(id);
+    loadCategories();
+  };
+
+  const handleAddCategory = async (category) => {
+    await addCategory(category);
+    loadCategories();
+  };
 
   const renderCategories = (categories) => {
     return (
@@ -20,9 +35,9 @@ const CategoryList = () => {
         {categories.map((category) => (
           <li key={category._id}>
             {category.name}
-            <button onClick={() => removeCategory(category.id)}>Delete</button>
-            <button onClick={() => editCategory(category.id)}>Edit</button>
-            <button onClick={() => addCategory(category)}>Add child</button>
+            <button onClick={() => handleRemoveCategory(category.id)}>Delete</button>
+            <button onClick={() => handleEditCategory(category.id)}>Edit</button>
+            <button onClick={() => handleAddCategory(category)}>Add child</button>
             {category.children &&
               category.children.length > 0 &&
               renderCategories(category.children)}

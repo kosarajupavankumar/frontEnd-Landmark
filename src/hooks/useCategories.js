@@ -1,4 +1,3 @@
-// src/hooks/useCategories.js
 import { useState, useEffect } from "react";
 import {
   fetchCategories,
@@ -30,6 +29,7 @@ export const useCategories = () => {
     try {
       const newCategory = await createCategory(category);
       setCategories([...categories, newCategory]);
+      loadCategories(); // Reload categories after adding
     } catch {
       setError("Failed to add category");
     }
@@ -40,6 +40,7 @@ export const useCategories = () => {
     try {
       const updated = await updateCategory(id, updatedCategory);
       setCategories(categories.map((cat) => (cat._id === id ? updated : cat)));
+      loadCategories(); // Reload categories after updating
     } catch {
       setError("Failed to update category");
     }
@@ -51,6 +52,7 @@ export const useCategories = () => {
       console.log(id);
       await deleteCategory(id);
       setCategories(categories.filter((cat) => cat._id !== id));
+      loadCategories(); // Reload categories after deleting
     } catch {
       setError("Failed to delete category");
     }
