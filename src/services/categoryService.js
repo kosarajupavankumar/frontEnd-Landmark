@@ -1,4 +1,3 @@
-// src/services/categoryService.js
 import axios from "axios";
 
 const API_URL = "http://localhost:3000/api/categories"; // Adjust API URL
@@ -18,7 +17,10 @@ export const fetchCategories = async () => {
 // Create a new category
 export const createCategory = async (category) => {
   try {
-    const response = await axios.post(API_URL, category);
+    const response = await axios.post(API_URL, {
+      name: category.name,
+      parent: category.parent,
+    });
     return response.data;
   } catch (error) {
     console.error("Error creating category:", error);
