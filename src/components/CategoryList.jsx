@@ -1,4 +1,3 @@
-// src/components/CategoryList.jsx
 import { useCategories } from "../hooks/useCategories";
 
 const CategoryList = () => {
@@ -9,10 +8,29 @@ const CategoryList = () => {
     removeCategory,
     addCategory,
     editCategory,
+    loadCategories,
   } = useCategories();
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
+
+  const handleRemoveCategory = async (id) => {
+    await removeCategory(id);
+    loadCategories();
+  };
+
+  const handleEditCategory = async (id) => {
+    await editCategory(id);
+    loadCategories();
+  };
+
+  const handleAddCategory = async (parentId) => {
+    const categoryName = prompt("Enter the name of the new category:");
+    if (categoryName) {
+      await addCategory({ name: categoryName, parent: parentId });
+    }
+    loadCategories();
+  };
 
   const renderCategories = (categories) => {
     return (
@@ -20,9 +38,24 @@ const CategoryList = () => {
         {categories.map((category) => (
           <li key={category._id}>
             {category.name}
-            <button onClick={() => removeCategory(category.id)}>Delete</button>
-            <button onClick={() => editCategory(category.id)}>Edit</button>
-            <button onClick={() => addCategory(category)}>Add child</button>
+            <button
+              style={{ color: "red" }}
+              onClick={() => handleRemoveCategory(category.id)}
+            >
+              Delete
+            </button>
+            <button
+              style={{ color: "purple" }}
+              onClick={() => handleEditCategory(category.id)}
+            >
+              Edit
+            </button>
+            <button
+              style={{ color: "green" }}
+              onClick={() => handleAddCategory(category.id)}
+            >
+              Add
+            </button>
             {category.children &&
               category.children.length > 0 &&
               renderCategories(category.children)}

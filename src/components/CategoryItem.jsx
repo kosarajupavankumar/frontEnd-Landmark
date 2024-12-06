@@ -1,4 +1,3 @@
-// src/components/CategoryItem.jsx
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useCategories } from "../hooks/useCategories";
@@ -6,17 +5,19 @@ import { useCategories } from "../hooks/useCategories";
 const CategoryItem = ({ category }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedName, setUpdatedName] = useState(category.name);
-  const { editCategory, removeCategory } = useCategories();
+  const { editCategory, removeCategory, loadCategories } = useCategories();
 
   const handleEdit = () => {
     if (isEditing && updatedName !== category.name) {
       editCategory(category.id, { name: updatedName });
+      loadCategories(); // Reload categories after editing
     }
     setIsEditing(!isEditing);
   };
 
   const handleDelete = () => {
     removeCategory(category.id);
+    loadCategories(); // Reload categories after deleting
   };
 
   return (

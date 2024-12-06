@@ -1,0 +1,104 @@
+/* Container for each category item */
+.category-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Display the category name */
+  span {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-right: 15px;
+  }
+
+  /* Edit button styles */
+  button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  /* Style for delete button */
+  .delete-btn {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+
+  /* Input field style when editing */
+  input {
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+    margin-right: 10px;
+  }
+
+  /* Save button style when editing */
+  button.save {
+    background-color: #28a745;
+
+    &:hover {
+      background-color: #218838;
+    }
+  }
+}
+
+/* Category list container */
+.category-list {
+  margin: 20px;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+/* Add Category button styles */
+button.add-category {
+  padding: 10px 20px;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #218838;
+  }
+}

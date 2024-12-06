@@ -2,7 +2,7 @@
 import CategoryList from "./components/CategoryList";
 import CategoryForm from "./components/CategoryForm";
 
-import "./styles/styles.css";
+import "./styles/styles.scss";
 
 function App() {
   return (

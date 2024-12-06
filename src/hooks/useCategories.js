@@ -1,4 +1,3 @@
-// src/hooks/useCategories.js
 import { useState, useEffect } from "react";
 import {
   fetchCategories,
@@ -28,8 +27,21 @@ export const useCategories = () => {
   // Add a new category
   const addCategory = async (category) => {
     try {
+      console.log(`111 category: ${JSON.stringify(category)}`);
+
       const newCategory = await createCategory(category);
-      setCategories([...categories, newCategory]);
+      if (category.parent) {
+        setCategories(
+          categories.map((cat) =>
+            cat._id === category.parent
+              ? { ...cat, children: [...(cat.children || []), newCategory] }
+              : cat
+          )
+        );
+      } else {
+        setCategories([...categories, newCategory]);
+      }
+      loadCategories(); // Reload categories after adding
     } catch {
       setError("Failed to add category");
     }
@@ -40,6 +52,7 @@ export const useCategories = () => {
     try {
       const updated = await updateCategory(id, updatedCategory);
       setCategories(categories.map((cat) => (cat._id === id ? updated : cat)));
+      loadCategories(); // Reload categories after updating
     } catch {
       setError("Failed to update category");
     }
@@ -51,6 +64,7 @@ export const useCategories = () => {
       console.log(id);
       await deleteCategory(id);
       setCategories(categories.filter((cat) => cat._id !== id));
+      loadCategories(); // Reload categories after deleting
     } catch {
       setError("Failed to delete category");
     }
