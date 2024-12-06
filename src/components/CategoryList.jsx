@@ -24,8 +24,8 @@ const CategoryList = () => {
     loadCategories();
   };
 
-  const handleAddCategory = async () => {
-    await addCategory({ name: "New Category" });
+  const handleAddCategory = async (parentId) => {
+    await addCategory({ name: "New Category", parent: parentId });
     loadCategories();
   };
 
@@ -37,6 +37,7 @@ const CategoryList = () => {
             {category.name}
             <button onClick={() => handleRemoveCategory(category.id)}>Delete</button>
             <button onClick={() => handleEditCategory(category.id)}>Edit</button>
+            <button onClick={() => handleAddCategory(category.id)}>Add Category</button>
             {category.children &&
               category.children.length > 0 &&
               renderCategories(category.children)}
