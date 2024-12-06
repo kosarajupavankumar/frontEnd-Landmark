@@ -24,8 +24,11 @@ const CategoryList = () => {
     loadCategories();
   };
 
-  const handleAddCategory = async (category) => {
-    await addCategory(category);
+  const handleAddCategory = async (parentId) => {
+    const categoryName = prompt("Enter the name of the new category:");
+    if (categoryName) {
+      await addCategory({ name: categoryName, parent: parentId });
+    }
     loadCategories();
   };
 
@@ -35,9 +38,24 @@ const CategoryList = () => {
         {categories.map((category) => (
           <li key={category._id}>
             {category.name}
-            <button onClick={() => handleRemoveCategory(category.id)}>Delete</button>
-            <button onClick={() => handleEditCategory(category.id)}>Edit</button>
-            <button onClick={() => handleAddCategory(category)}>Add child</button>
+            <button
+              style={{ color: "red" }}
+              onClick={() => handleRemoveCategory(category.id)}
+            >
+              Delete
+            </button>
+            <button
+              style={{ color: "purple" }}
+              onClick={() => handleEditCategory(category.id)}
+            >
+              Edit
+            </button>
+            <button
+              style={{ color: "green" }}
+              onClick={() => handleAddCategory(category.id)}
+            >
+              Add
+            </button>
             {category.children &&
               category.children.length > 0 &&
               renderCategories(category.children)}
