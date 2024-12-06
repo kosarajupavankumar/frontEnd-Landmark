@@ -27,8 +27,20 @@ export const useCategories = () => {
   // Add a new category
   const addCategory = async (category) => {
     try {
-      const newCategory = await createCategory({ ...category, parent: null });
-      setCategories([...categories, newCategory]);
+      console.log(`111 category: ${JSON.stringify(category)}`);
+
+      const newCategory = await createCategory(category);
+      if (category.parent) {
+        setCategories(
+          categories.map((cat) =>
+            cat._id === category.parent
+              ? { ...cat, children: [...(cat.children || []), newCategory] }
+              : cat
+          )
+        );
+      } else {
+        setCategories([...categories, newCategory]);
+      }
       loadCategories(); // Reload categories after adding
     } catch {
       setError("Failed to add category");

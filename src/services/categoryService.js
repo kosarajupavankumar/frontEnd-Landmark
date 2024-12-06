@@ -19,7 +19,7 @@ export const createCategory = async (category) => {
   try {
     const response = await axios.post(API_URL, {
       name: category.name,
-      parent: category.parent,
+      parentId: category.parent,
     });
     return response.data;
   } catch (error) {
