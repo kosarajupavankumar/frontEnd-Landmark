@@ -27,7 +27,7 @@ export const useCategories = () => {
   // Add a new category
   const addCategory = async (category) => {
     try {
-      const newCategory = await createCategory(category);
+      const newCategory = await createCategory({ ...category, parent: null });
       setCategories([...categories, newCategory]);
       loadCategories(); // Reload categories after adding
     } catch {

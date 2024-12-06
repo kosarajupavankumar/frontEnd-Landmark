@@ -8,7 +8,7 @@ const CategoryForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name) {
-      addCategory({ name });
+      addCategory({ name, parent: null }); // Add category to root level
       setName("");
       loadCategories(); // Reload categories after adding
     }
