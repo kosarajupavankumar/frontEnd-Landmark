@@ -48,9 +48,9 @@ export const useCategories = () => {
   };
 
   // Update an existing category
-  const editCategory = async (id, updatedCategory) => {
+  const editCategory = async (id, name) => {
     try {
-      const updated = await updateCategory(id, updatedCategory);
+      const updated = await updateCategory(id, name);
       setCategories(categories.map((cat) => (cat._id === id ? updated : cat)));
       loadCategories(); // Reload categories after updating
     } catch {

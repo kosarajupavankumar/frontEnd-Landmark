@@ -20,7 +20,12 @@ const CategoryList = () => {
   };
 
   const handleEditCategory = async (id) => {
-    await editCategory(id);
+    const newName = prompt("Enter the new name of the category:");
+
+    if (newName) {
+      await editCategory(id, newName);
+    }
+
     loadCategories();
   };
 
@@ -33,6 +38,7 @@ const CategoryList = () => {
   };
 
   const renderCategories = (categories) => {
+    console.log(`11111 categories: ${JSON.stringify(categories)}`);
     return (
       <ul>
         {categories.map((category) => (
@@ -44,12 +50,12 @@ const CategoryList = () => {
             >
               Delete
             </button>
-            <button
+            {/* <button
               style={{ color: "purple" }}
               onClick={() => handleEditCategory(category.id)}
             >
               Edit
-            </button>
+            </button> */}
             <button
               style={{ color: "green" }}
               onClick={() => handleAddCategory(category.id)}

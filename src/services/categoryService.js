@@ -29,9 +29,13 @@ export const createCategory = async (category) => {
 };
 
 // Update an existing category
-export const updateCategory = async (id, category) => {
+export const updateCategory = async (id, name) => {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, category);
+    const response = await axios.put(`${API_URL}/${id}`, {
+      name,
+      id,
+      parentId: id,
+    });
     return response.data;
   } catch (error) {
     console.error("Error updating category:", error);
